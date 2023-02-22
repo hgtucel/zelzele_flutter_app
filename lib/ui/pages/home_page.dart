@@ -1,3 +1,4 @@
+import 'package:deprem_app/business/parser_html.dart';
 import 'package:deprem_app/ui/widgets/info_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,10 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
+            IconButton(onPressed: (){
+              ParserHtml parserHtml = ParserHtml();
+              parserHtml.earthquakeInfoList();
+            }, icon: Icon(Icons.abc, color: Colors.black,)),
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
