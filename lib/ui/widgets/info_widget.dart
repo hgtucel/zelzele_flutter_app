@@ -1,3 +1,4 @@
+import 'package:deprem_app/core/extension/num_extension.dart';
 import 'package:deprem_app/models/earthquake_model.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
@@ -7,11 +8,11 @@ class InfoWidget extends StatelessWidget {
   const InfoWidget({super.key, this.earthquakeModel});
 
   List<Color> gradientColors(num size) {
-    if (size >= 3) {
+    if (size.isBetween(3, 4)) {
       return const [Color(0xFFfefefe), Color(0xFFdbeafe)];
-    } else if (size >= 4) {
+    } else if (size.isBetween(4, 6)) {
       return const [Color(0xFFfefefe), Color(0xFFfef9c3)];
-    } else if (size >= 6) {
+    } else if (size.isBetween(6, 7)) {
       return const [Color(0xFFfefefe), Color(0xFFffedd5)];
     } else if (size >= 7) {
       return const [Color(0xFFfefefe), Color(0xFFfee2e2)];
@@ -40,7 +41,7 @@ class InfoWidget extends StatelessWidget {
       decoration: BoxDecoration(
           gradient: LinearGradient(
               end: Alignment.topRight,
-              colors: gradientColors(num.parse(earthquakeModel?.size ?? "1")))),
+              colors: gradientColors(earthquakeModel?.size ?? 1))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +53,8 @@ class InfoWidget extends StatelessWidget {
                 color: const Color.fromRGBO(0, 0, 0, 0.05),
                 borderRadius: BorderRadius.circular(12)),
             child: Text(
-              earthquakeModel?.size ?? "",
-              style: TextStyle(color: textColors(num.parse(earthquakeModel?.size ?? "1")),fontSize: 20, fontWeight: FontWeight.w700),
+              "${earthquakeModel?.size ?? ""}",
+              style: TextStyle(color: textColors(earthquakeModel?.size ?? 1),fontSize: 20, fontWeight: FontWeight.w700),
             ),
           ),
           Column(
@@ -63,7 +64,7 @@ class InfoWidget extends StatelessWidget {
               Text(
                 earthquakeModel?.city ?? "",
                 style: TextStyle(
-                    color: textColors(num.parse(earthquakeModel?.size ?? "1")),
+                    color: textColors(earthquakeModel?.size ?? 1),
                     fontWeight: FontWeight.w700,
                     fontSize: 20,
                     height: 1.25),
@@ -73,7 +74,7 @@ class InfoWidget extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20,
                     height: 1.75,
-                    color: textColors(num.parse(earthquakeModel?.size ?? "1")).withOpacity(0.6)),
+                    color: textColors(earthquakeModel?.size ?? 1).withOpacity(0.6)),
               ),
               const SizedBox(
                 height: 5,
@@ -85,7 +86,7 @@ class InfoWidget extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 16,
                         height: 1.25,
-                        color: textColors(num.parse(earthquakeModel?.size ?? "1")).withOpacity(0.7)),
+                        color: textColors(earthquakeModel?.size ?? 1).withOpacity(0.7)),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 3),
@@ -99,7 +100,7 @@ class InfoWidget extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 16,
                         height: 1.25,
-                        color: textColors(num.parse(earthquakeModel?.size ?? "1")).withOpacity(0.7)),
+                        color: textColors(earthquakeModel?.size ?? 1).withOpacity(0.7)),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 3),
@@ -113,7 +114,7 @@ class InfoWidget extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 16,
                         height: 1.25,
-                        color: textColors(num.parse(earthquakeModel?.size ?? "1")).withOpacity(0.7)),
+                        color: textColors(earthquakeModel?.size ?? 1).withOpacity(0.7)),
                   ),
                 ],
               )

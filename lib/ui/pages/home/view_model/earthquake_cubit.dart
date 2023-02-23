@@ -9,8 +9,9 @@ class EarthquakeInitial extends EarthquakeState {}
 class EarthquakeLoading extends EarthquakeState {}
 
 class EarthquakeComplete extends EarthquakeState {
+  List<EarthquakeModel>? initalList;
   List<EarthquakeModel>? list;
-  EarthquakeComplete({this.list});
+  EarthquakeComplete({this.initalList, this.list});
 }
 
 class EarthquakeError extends EarthquakeState {
@@ -28,11 +29,22 @@ class EarthquakeCubit extends Cubit<EarthquakeState> {
 
     try {
       final response = await parserHtml.earthquakeInfoList();
-      emit(EarthquakeComplete(list: response));
+      emit(EarthquakeComplete(initalList: response, list: response));
       return [];
     } catch (e) {
       emit(EarthquakeError(message: ""));
       return [];
     }
+  }
+
+  void filterEarthQuake(
+      {int? size,
+      required List<EarthquakeModel> initalList,
+      required List<EarthquakeModel> list}) {
+    final filter = initalList
+        .where((element) => (element.size ?? 3) > (size ?? 3))
+        .toList();
+
+    emit(EarthquakeComplete(initalList: initalList, list: filter));
   }
 }

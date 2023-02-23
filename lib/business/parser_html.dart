@@ -21,7 +21,7 @@ class ParserHtml implements IParserHtml {
       linkMap.add({
         "depth" : item.children[3].innerHtml,
         "city" : item.children[6].innerHtml.replaceFirst("(", "").replaceAll(")", "").split(" ").last,
-        "size" : item.children[5].innerHtml,
+        "size" : num.tryParse(item.children[5].innerHtml),
         "district" : item.children[6].innerHtml.replaceFirst("(", "").replaceAll(")", "").split(" ").first,
         "time": item.children.first.innerHtml
       });

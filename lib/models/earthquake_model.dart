@@ -1,7 +1,7 @@
 class EarthquakeModel {
   String? depth;
   String? city;
-  String? size;
+  num? size;
   String? district;
   String? time;
 
