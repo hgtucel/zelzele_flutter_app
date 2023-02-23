@@ -1,4 +1,5 @@
 import 'package:deprem_app/ui/pages/home/view_model/earthquake_cubit.dart';
+import 'package:deprem_app/ui/widgets/empty_list_widget.dart';
 import 'package:deprem_app/ui/widgets/info_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomeView> {
         backgroundColor: Colors.white,
         elevation: 1,
         toolbarHeight: 40,
-        title: Text(
+         title: Text(
           Jiffy().format("yy MMMM yyyy"),
           style: const TextStyle(color: Colors.black, fontSize: 16),
         ),
@@ -51,27 +52,7 @@ class _HomePageState extends State<HomeView> {
           return Stack(
             children: [
               state.list?.isEmpty ?? false
-                  ? SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          const Text(
-                            "Bu büyüklükte deprem yok (çok şükür)",
-                            style: TextStyle(
-                                fontSize: 18,
-                                height: 2,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            "Son gerçekleşen 100 deprem arasında",
-                            style: TextStyle(
-                                color: Colors.black.withOpacity(0.6),
-                                fontSize: 15,
-                                height: 2),
-                          )
-                        ],
-                      ),
-                    )
+                  ? const EmptyListWidget()
                   : ListView.builder(
                       itemCount: state.list?.length,
                       itemBuilder: (context, index) {
@@ -220,7 +201,7 @@ class _HomePageState extends State<HomeView> {
                                     .read<EarthquakeCubit>()
                                     .earthquakeInfoList();
                               },
-                              icon: Icon(Icons.sync)),
+                              icon: const Icon(Icons.sync)),
                         )
                       ],
                     ),
