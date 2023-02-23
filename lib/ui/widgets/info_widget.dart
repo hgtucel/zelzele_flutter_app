@@ -6,15 +6,41 @@ class InfoWidget extends StatelessWidget {
   final EarthquakeModel? earthquakeModel;
   const InfoWidget({super.key, this.earthquakeModel});
 
+  List<Color> gradientColors(num size) {
+    if (size >= 3) {
+      return const [Color(0xFFfefefe), Color(0xFFdbeafe)];
+    } else if (size >= 4) {
+      return const [Color(0xFFfefefe), Color(0xFFfef9c3)];
+    } else if (size >= 6) {
+      return const [Color(0xFFfefefe), Color(0xFFffedd5)];
+    } else if (size >= 7) {
+      return const [Color(0xFFfefefe), Color(0xFFfee2e2)];
+    }
+    return const [Color(0xFFfefefe), Color(0xFFf4f4f5)];
+  }
+
+  Color textColors(num size) {
+    if (size >= 3) {
+      return const Color.fromRGBO(30, 58, 138, 1);
+    } else if (size >= 4) {
+      return const Color.fromRGBO(113, 63, 18, 1);
+    } else if (size >= 6) {
+      return const Color.fromRGBO(124, 45, 18, 1);
+    } else if (size >= 7) {
+      return const Color.fromRGBO(124, 29, 29, 1);
+    }
+    return Colors.black;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 5),
       padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           gradient: LinearGradient(
               end: Alignment.topRight,
-              colors: [Color(0xFFfefefe),Color(0xFFf4f4f5), ])),
+              colors: gradientColors(num.parse(earthquakeModel?.size ?? "1")))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +53,7 @@ class InfoWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12)),
             child: Text(
               earthquakeModel?.size ?? "",
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+              style: TextStyle(color: textColors(num.parse(earthquakeModel?.size ?? "1")),fontSize: 20, fontWeight: FontWeight.w700),
             ),
           ),
           Column(
@@ -36,25 +62,30 @@ class InfoWidget extends StatelessWidget {
             children: [
               Text(
                 earthquakeModel?.city ?? "",
-                style: const TextStyle(
-                    fontWeight: FontWeight.w700, fontSize: 20, height: 1.25),
+                style: TextStyle(
+                    color: textColors(num.parse(earthquakeModel?.size ?? "1")),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
+                    height: 1.25),
               ),
               Text(
                 earthquakeModel?.district ?? "",
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 20,
                     height: 1.75,
-                    color: Color.fromRGBO(24, 24, 27, 0.5)),
+                    color: textColors(num.parse(earthquakeModel?.size ?? "1")).withOpacity(0.6)),
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 children: [
                   Text(
                     "${earthquakeModel?.depth} km",
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 16,
                         height: 1.25,
-                        color: Color.fromRGBO(24, 24, 27, 0.5)),
+                        color: textColors(num.parse(earthquakeModel?.size ?? "1")).withOpacity(0.7)),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 3),
@@ -65,10 +96,10 @@ class InfoWidget extends StatelessWidget {
                   ),
                   Text(
                     "${earthquakeModel?.time?.split(" ").last}",
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 16,
                         height: 1.25,
-                        color: Color.fromRGBO(24, 24, 27, 0.5)),
+                        color: textColors(num.parse(earthquakeModel?.size ?? "1")).withOpacity(0.7)),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 3),
@@ -78,11 +109,11 @@ class InfoWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    Jiffy(DateTime(2023,02,23,11,25)).fromNow(),
-                    style: const TextStyle(
+                    Jiffy(DateTime.parse(earthquakeModel?.time ?? "")).fromNow(),
+                    style: TextStyle(
                         fontSize: 16,
                         height: 1.25,
-                        color: Color.fromRGBO(24, 24, 27, 0.5)),
+                        color: textColors(num.parse(earthquakeModel?.size ?? "1")).withOpacity(0.7)),
                   ),
                 ],
               )
