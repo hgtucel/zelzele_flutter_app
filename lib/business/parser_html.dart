@@ -8,7 +8,6 @@ import 'package:html/parser.dart' as parser;
 
 class ParserHtml implements IParserHtml {
   
-  
   @override
   Future<List<EarthquakeModel>> earthquakeInfoList() async {
     final endpoint = Uri.https("deprem.afad.gov.tr","last-earthquakes.html",);
