@@ -22,7 +22,7 @@ class EarthquakeError extends EarthquakeState {
 class EarthquakeCubit extends Cubit<EarthquakeState> {
   IParserHtml parserHtml;
 
-  EarthquakeCubit(this.parserHtml) : super(EarthquakeInitial());
+  EarthquakeCubit({required this.parserHtml}) : super(EarthquakeInitial());
 
   Future<List<EarthquakeModel>> earthquakeInfoList() async {
     emit(EarthquakeLoading());
